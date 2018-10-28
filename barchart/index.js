@@ -63,6 +63,7 @@ function createBarChart(data, h, w) {
 		 .attr("y", function(d, i) { return h - yScale(d[1])})
 		 .attr("width", barWidth - padding)
 		 .attr("height", function(d, i) { return yScale(d[1]) })
+		 .attr("class", "bar");
 
 }
 
