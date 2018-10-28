@@ -51,17 +51,18 @@ function createBarChart(data, h, w) {
 														d3.max(data, function(d) { return d[1] })])
 									 .range([0, h]);
 
-	const barWidth = Math.floor(w / data.length);
+	const padding = 1;
+	const barWidth = 4;
 
 	//add rectangles
 	svg.selectAll("rect")
 	   .data(data)
 	   .enter()
 	   .append("rect")
-		 .attr("x", function(d,i) { return i * barWidth })
+		 .attr("x", function(d,i) { return i * barWidth})
 		 .attr("y", function(d, i) { return h - yScale(d[1])})
-		 .attr("width", barWidth)
-		 .attr("height", function(d, i) { return yScale(d[1]) });
+		 .attr("width", barWidth - padding)
+		 .attr("height", function(d, i) { return yScale(d[1]) })
 
 }
 
