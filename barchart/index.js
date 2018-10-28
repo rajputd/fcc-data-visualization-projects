@@ -1,8 +1,10 @@
 
 document.addEventListener("DOMContentLoaded", function(event) {
-	const height = 200;
-	const width = 1500;
+	const height = 100;
+	const width = 500;
 	const dataSource = "https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json";
+	const cutOffRange = 30;
+
 
 	//get GDP data and render a barchart with it
 	fetch(dataSource).then(function(response) {
@@ -10,6 +12,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	})
 	.then(function(json) {
 		let data = json.data;
+
+		//Calculate cutOffDate from cutOffRange
+		const cutOffDate = new Date();
+		cutOffDate.setFullYear(cutOffDate.getFullYear() - cutOffRange);
+
+		//filter out data older than cutOffDate
+		data = data.filter(function(d,i) {
+			if (Date.parse(d[0]) >= cutOffDate.getTime()) {
+				return true;
+			}
+
+			return false;
+		})
+
 		createBarChart(data, height, width);
 	})
 	.catch(function(err) {
